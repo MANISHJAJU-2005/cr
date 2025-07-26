@@ -11,10 +11,6 @@
       padding: 20px;
       text-align: center;
     }
-    h1 {
-      color: green;
-      font-size: 24px;
-    }
     .tracker {
       background: white;
       padding: 20px;
@@ -30,9 +26,9 @@
       gap: 10px;
     }
     .buttons button {
-      min-width: 70px;
-      padding: 14px;
-      font-size: 18px;
+      min-width: 75px;
+      padding: 20px;
+      font-size: 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -54,7 +50,7 @@
     }
     textarea {
       width: 100%;
-      height: 120px;
+      height: 140px;
       margin-top: 10px;
       resize: none;
       font-size: 16px;
@@ -71,17 +67,10 @@
 <body>
 
   <div class="tracker">
-    <!-- 📝 LOG FIRST -->
     <textarea id="log" readonly></textarea>
-
-    <!-- 📊 STATS BELOW LOG -->
     <div class="stats" id="stats"></div>
   </div>
 
-  <!-- 🟢 TITLE -->
-  <h1>Cricket Score Tracker</h1>
-
-  <!-- 🎯 BUTTONS -->
   <div class="tracker">
     <div class="buttons">
       <button class="run" onclick="handleRun(0)">0</button>
@@ -124,17 +113,26 @@
       const economy = balls > 0 ? ((runs + extras) / (balls / 6)).toFixed(2) : "0.00";
 
       let displayLog = "";
+      let overCount = 1;
       let legalCount = 0;
+      let currentOver = [];
 
       for (let i = 0; i < log.length; i++) {
         const entry = log[i];
-        displayLog += entry + " ";
-        if (!entry.includes("Wd") && !entry.includes("Nb") && !entry.includes("*")) {
-          legalCount++;
-          if (legalCount % 6 === 0) {
-            displayLog += "\n";
-          }
+        currentOver.push(entry);
+
+        const isLegal = !entry.includes("Wd") && !entry.includes("Nb") && !entry.includes("*");
+        if (isLegal) legalCount++;
+
+        if (legalCount % 6 === 0 && isLegal) {
+          displayLog += `O - ${overCount} : ${currentOver.join(" ")}\n`;
+          overCount++;
+          currentOver = [];
         }
+      }
+
+      if (currentOver.length > 0) {
+        displayLog += `O - ${overCount} : ${currentOver.join(" ")}`;
       }
 
       document.getElementById("log").value = displayLog.trim();
