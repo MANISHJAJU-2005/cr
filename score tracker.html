@@ -19,7 +19,7 @@
       background: white;
       padding: 20px;
       max-width: 500px;
-      margin: auto;
+      margin: 10px auto;
       border-radius: 10px;
       box-shadow: 0 0 10px #ccc;
     }
@@ -30,22 +30,22 @@
       gap: 10px;
     }
     .buttons button {
-      min-width: 90px;
-      padding: 17px;
-      font-size: 20px;
+      min-width: 70px;
+      padding: 14px;
+      font-size: 18px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
     }
-    .run { background-color: #1e7e34; color: yellow; }
+    .run { background-color: #1e7e34; color: white; }
     .special { background-color: #007bff; color: white; }
     .wicket { background-color: #dc3545; color: white; }
     .same.active { background-color: #9b59b6; color: white; }
     .same.inactive { background-color: #6f42c1; color: white; }
-    .undo { background-color: #e67e22; color: black; }
+    .undo { background-color: #e67e22; color: white; }
     .reset, .switch {
-      margin-top: 10px;
-      padding: 20px 20px;
+      margin-top: 15px;
+      padding: 12px 24px;
       background-color: #6c757d;
       color: white;
       border: none;
@@ -54,22 +54,34 @@
     }
     textarea {
       width: 100%;
-      height: 100px;
-      margin-top: 15px;
+      height: 120px;
+      margin-top: 10px;
       resize: none;
-      font-size: 23px;
+      font-size: 16px;
     }
     .stats {
       margin-top: 10px;
-      background-color: orange;
+      background-color: #eee;
       padding: 10px;
       border-radius: 5px;
-      font-size: 23px;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
+
+  <div class="tracker">
+    <!-- 📝 LOG FIRST -->
+    <textarea id="log" readonly></textarea>
+
+    <!-- 📊 STATS BELOW LOG -->
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <!-- 🟢 TITLE -->
   <h1>Cricket Score Tracker</h1>
+
+  <!-- 🎯 BUTTONS -->
   <div class="tracker">
     <div class="buttons">
       <button class="run" onclick="handleRun(0)">0</button>
@@ -85,10 +97,6 @@
       <button id="sameBallBtn" class="same inactive" onclick="toggleSameBall()">Same Ball</button>
       <button class="undo" onclick="undo()">Undo</button>
     </div>
-
-    <textarea id="log" readonly></textarea>
-
-    <div class="stats" id="stats"></div>
 
     <button class="switch" onclick="switchInnings()">Switch to 2nd Innings</button><br/>
     <button class="reset" onclick="resetMatch()">Reset Match</button>
